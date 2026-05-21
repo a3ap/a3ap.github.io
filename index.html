@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Us ♥</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Karla:wght@300;400;500&family=Homemade+Apple&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Karla', sans-serif;
+            color: #2d2d2d;
+            background-color: #f5f0fa;
+            overflow-x: hidden;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #9b59b6, #d4a5e8, #9b59b6);
+            z-index: 1000;
+        }
+
+        /* Hero - Full photo background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            /* REPLACE THIS WITH YOUR PHOTO */
+            background: url('IMG_5989.jpg') center/cover no-repeat;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(40, 10, 60, 0.55);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 5.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1.2s ease forwards 0.3s;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-family: 'Homemade Apple', cursive;
+            font-size: 1.1rem;
+            color: #e8d0f5;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 1.2s ease forwards 0.6s;
+        }
+
+        .hero .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeUp 1.2s ease forwards 0.9s;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 47%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-family: 'Caveat', cursive;
+            font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeUp 1.2s ease forwards 1.5s;
+        }
+
+        .scroll-hint span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            margin: 0.5rem auto 0;
+            border-right: 2px solid rgba(255,255,255,0.7);
+            border-bottom: 2px solid rgba(255,255,255,0.7);
+            transform: rotate(45deg);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(6px); }
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px) rotate(-1deg);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.active { opacity: 1; transform: translateX(0) rotate(0deg); }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px) rotate(1deg);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.active { opacity: 1; transform: translateX(0) rotate(0deg); }
+
+        /* Handwritten note section */
+        .note-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .note-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 3rem 2.5rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(100, 50, 150, 0.08);
+            transform: rotate(-0.5deg);
+            position: relative;
+        }
+
+        .note-card::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            background: rgba(180, 130, 220, 0.4);
+            border-radius: 2px;
+        }
+
+        .note-card h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            color: #7b3fa0;
+            margin-bottom: 1rem;
+        }
+
+        .note-card p {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+        }
+
+        /* Photo strip section */
+        .photo-strip {
+            padding: 4rem 1rem;
+            overflow: hidden;
+        }
+
+        .strip-scroll {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1rem;
+            animation: scrollStrip 30s linear infinite;
+        }
+
+        .strip-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollStrip {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .strip-photo {
+            flex-shrink: 0;
+            width: 200px;
+            height: 260px;
+            background: #fff;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transform: rotate(var(--rotation));
+            transition: transform 0.3s ease;
+        }
+
+        .strip-photo:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 10;
+        }
+
+        .strip-photo-inner {
+            width: 100%;
+            height: 100%;
+            /* REPLACE WITH YOUR PHOTOS */
+            background: linear-gradient(135deg, #e8d5f5, #d4b8e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Caveat', cursive;
+            color: #9b59b6;
+            font-size: 1rem;
+            text-align: center;
+            
+        }
+
+        .strip-photo .caption {
+            font-family: 'Caveat', cursive;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        /* Big photo + text section */
+        .photo-text-section {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .photo-text-row {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 6rem;
+        }
+
+        .photo-text-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .photo-text-row .photo-frame {
+            flex: 1;
+            min-height: 350px;
+            position: relative;
+        }
+
+        .photo-frame-inner {
+            width: 100%;
+            height: 350px;
+            border-radius: 12px;
+            /* REPLACE WITH YOUR PHOTOS */
+            background: linear-gradient(135deg, #e0c8f0, #c9a8e0);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(100, 50, 150, 0.15);
+        }
+
+        .photo-frame-inner .photo-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-family: 'Caveat', cursive;
+            color: #9b59b6;
+            font-size: 1.2rem;
+        }
+
+        .photo-frame-inner .photo-placeholder .icon {
+            font-size: 2rem;
+        }
+
+        .photo-frame::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 18px;
+            background: rgba(180, 130, 220, 0.35);
+            top: -6px;
+            right: 20px;
+            border-radius: 2px;
+            transform: rotate(5deg);
+        }
+
+        .photo-text-row .text-side {
+            flex: 1;
+        }
+
+        .text-side h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #7b3fa0;
+            margin-bottom: 0.8rem;
+        }
+
+        .text-side p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #555;
+            font-weight: 300;
+        }
+
+        .text-side .doodle-heart {
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Full width photo break */
+        .full-photo-break {
+            width: 100%;
+            height: 60vh;
+            position: relative;
+            margin: 2rem 0;
+            /* REPLACE WITH YOUR PHOTO */
+            background: url('IMG_5816.jpg') center/cover no-repeat;
+        }
+
+        .full-photo-break::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(40, 10, 60, 0.2), rgba(40, 10, 60, 0.5));
+        }
+
+        .full-photo-break .overlay-text {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #fff;
+            z-index: 1;
+        }
+
+        .full-photo-break .overlay-text h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        }
+
+        .full-photo-break .overlay-text p {
+            font-family: 'Homemade Apple', cursive;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            color: #e8d0f5;
+        }
+
+        /* Sticky scroll messages */
+        .sticky-section {
+            height: 250vh;
+            position: relative;
+        }
+
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a0a2e, #2d1052);
+            overflow: hidden;
+        }
+
+        .sticky-text {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #e8d0f5;
+            text-align: center;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            max-width: 700px;
+        }
+
+        .sticky-bg-hearts {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-heart {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            color: #d4a5e8;
+        }
+
+        /* Timeline - Scrapbook style */
+        .timeline-section {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-section .section-title {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #7b3fa0;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-section .section-sub {
+            text-align: center;
+            color: #888;
+            margin-bottom: 4rem;
+            font-style: italic;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            align-items: flex-start;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        .timeline-item .tl-photo {
+            flex-shrink: 0;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            /* REPLACE WITH YOUR PHOTOS */
+            background: linear-gradient(135deg, #e8d5f5, #c9a8e0);
+            border: 4px solid #fff;
+            box-shadow: 0 4px 20px rgba(100, 50, 150, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.active .tl-photo {
+            transform: scale(1.08);
+            box-shadow: 0 8px 35px rgba(155, 89, 182, 0.3);
+            border-color: #d4a5e8;
+        }
+
+        .timeline-item .tl-content {
+            flex: 1;
+            padding-top: 1rem;
+        }
+
+        .tl-content .tl-date {
+            font-family: 'Homemade Apple', cursive;
+            font-size: 0.85rem;
+            color: #9b59b6;
+            margin-bottom: 0.3rem;
+        }
+
+        .tl-content h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: #4a2068;
+            margin-bottom: 0.5rem;
+        }
+
+        .tl-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .tl-connector {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, #d4a5e8, transparent);
+            margin: 0 auto 1rem;
+        }
+
+        /* Letters Stack */
+        .letters-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f0fa, #ede0f7);
+        }
+
+        .letters-section .section-title {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #7b3fa0;
+            margin-bottom: 0.5rem;
+        }
+
+        .letters-section .section-sub {
+            color: #888;
+            font-style: italic;
+            margin-bottom: 3rem;
+            font-size: 0.95rem;
+        }
+
+        .letters-container {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            height: 420px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .letter-card {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 440px;
+            min-height: 340px;
+            background: #fff;
+            border-radius: 4px;
+            padding: 2.5rem 2rem;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(100, 50, 150, 0.1);
+            border: 1px solid rgba(200, 180, 220, 0.3);
+        }
+
+        /* Notebook lines */
+        .letter-card::after {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 2rem;
+            right: 2rem;
+            bottom: 2rem;
+            background: repeating-linear-gradient(
+                transparent,
+                transparent 27px,
+                rgba(180, 130, 220, 0.15) 27px,
+                rgba(180, 130, 220, 0.15) 28px
+            );
+            pointer-events: none;
+        }
+
+        .letter-card .tape {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 70px;
+            height: 20px;
+            background: rgba(200, 170, 230, 0.5);
+            border-radius: 2px;
+        }
+
+        .letter-card.stack-0 {
+            z-index: 5;
+            transform: translateX(-50%) translateY(0) rotate(-0.5deg) scale(1);
+            opacity: 1;
+        }
+
+        .letter-card.stack-1 {
+            z-index: 4;
+            transform: translateX(-50%) translateY(12px) rotate(1.5deg) scale(0.96);
+            opacity: 0.75;
+        }
+
+        .letter-card.stack-2 {
+            z-index: 3;
+            transform: translateX(-50%) translateY(24px) rotate(-1deg) scale(0.92);
+            opacity: 0.5;
+        }
+
+        .letter-card.stack-3 {
+            z-index: 2;
+            transform: translateX(-50%) translateY(36px) rotate(2deg) scale(0.88);
+            opacity: 0.3;
+        }
+
+        .letter-card.stack-hidden {
+            z-index: 1;
+            transform: translateX(-50%) translateY(48px) scale(0.84);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .letter-card.exiting {
+            transform: translateX(120%) translateY(-30px) rotate(15deg) scale(0.9);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .letter-card .letter-date {
+            font-family: 'Homemade Apple', cursive;
+            font-size: 0.75rem;
+            color: #9b59b6;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .letter-card .letter-greeting {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: #4a2068;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .letter-card .letter-body {
+            font-family: 'Caveat', cursive;
+            font-size: 1.3rem;
+            line-height: 1.9;
+            color: #444;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .letter-card .letter-sign {
+            font-family: 'Homemade Apple', cursive;
+            font-size: 0.95rem;
+            color: #9b59b6;
+            text-align: right;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .letter-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .letter-nav button {
+            background: #fff;
+            border: 2px solid #d4a5e8;
+            color: #7b3fa0;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Caveat', cursive;
+            font-weight: 700;
+        }
+
+        .letter-nav button:hover {
+            background: #7b3fa0;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .letter-counter {
+            color: #888;
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            min-width: 60px;
+        }
+
+        /* Collage / Gallery */
+        .collage-section {
+            padding: 6rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .collage-section .section-title {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #7b3fa0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .collage-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(4, 120px);
+            gap: 1rem;
+        }
+
+        .collage-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            /* REPLACE WITH YOUR PHOTOS */
+            background: linear-gradient(135deg, #e8d5f5, #d4b8e8);
+            box-shadow: 0 3px 15px rgba(100, 50, 150, 0.1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collage-item:hover {
+            transform: scale(1.03) rotate(0deg);
+            box-shadow: 0 10px 35px rgba(100, 50, 150, 0.2);
+            z-index: 10;
+        }
+
+        .collage-item .col-placeholder {
+            font-family: 'Caveat', cursive;
+            color: #9b59b6;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .collage-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1 / 3; transform: rotate(-1deg); }
+        .collage-item:nth-child(2) { grid-column: 6 / 10; grid-row: 1 / 2; transform: rotate(0.5deg); }
+        .collage-item:nth-child(3) { grid-column: 10 / 13; grid-row: 1 / 3; transform: rotate(1deg); }
+        .collage-item:nth-child(4) { grid-column: 6 / 10; grid-row: 2 / 3; transform: rotate(-0.5deg); }
+        .collage-item:nth-child(5) { grid-column: 1 / 5; grid-row: 3 / 5; transform: rotate(0.8deg); }
+        .collage-item:nth-child(6) { grid-column: 5 / 9; grid-row: 3 / 5; transform: rotate(-0.3deg); }
+        .collage-item:nth-child(7) { grid-column: 9 / 13; grid-row: 3 / 5; transform: rotate(0.6deg); }
+
+        /* Counter */
+        .counter-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #1a0a2e, #2d1052);
+        }
+
+        .counter-section .section-title {
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
+            color: #e8d0f5;
+            margin-bottom: 2.5rem;
+        }
+
+        .counter-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .counter-item {
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .counter-item .number {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #d4a5e8;
+        }
+
+        .counter-item .label {
+            font-size: 0.8rem;
+            color: #a88bc2;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+            margin-top: 0.2rem;
+        }
+
+        /* Reasons section */
+        .reasons-section {
+            padding: 6rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .reasons-section .section-title {
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
+            color: #7b3fa0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .reason-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(100, 50, 150, 0.06);
+            transition: all 0.4s ease;
+        }
+
+        .reason-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(100, 50, 150, 0.12);
+        }
+
+        .reason-item .reason-num {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: #d4a5e8;
+            font-weight: 700;
+            min-width: 35px;
+        }
+
+        .reason-item .reason-text {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            padding-top: 0.3rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+            /* REPLACE WITH YOUR PHOTO */
+            background: url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=1600') center/cover no-repeat;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(40, 10, 60, 0.6);
+        }
+
+        footer .footer-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        footer h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        footer p {
+            font-family: 'Homemade Apple', cursive;
+            font-size: 0.9rem;
+            color: #e8d0f5;
+        }
+
+        /* Floating doodles */
+        .doodle {
+            position: absolute;
+            pointer-events: none;
+            font-size: 1.5rem;
+            opacity: 0.3;
+            color: #9b59b6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            .photo-text-row,
+            .photo-text-row:nth-child(even) {
+                flex-direction: column;
+                text-align: left;
+            }
+            .photo-frame-inner { height: 250px; }
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+                text-align: left;
+                align-items: center;
+            }
+            .timeline-item .tl-photo {
+                width: 140px;
+                height: 140px;
+            }
+            .collage-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+            .collage-item {
+                grid-column: auto !important;
+                grid-row: auto !important;
+                min-height: 150px;
+                transform: none !important;
+            }
+            .sticky-text { font-size: 2.5rem; }
+            .strip-photo { width: 160px; height: 210px; }
+            .letters-container { height: 400px; }
+            .letter-card { min-height: 300px; padding: 2rem 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.8rem; }
+            .note-card { padding: 2rem 1.5rem; }
+            .counter-grid { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Hero with photo background -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="subtitle">happy anniversary to us !!!</p>
+            <h1>One Year of Us</h1>
+            <div class="date-badge">May 21, 2025 → May 21, 2026</div>
+        </div>
+        <div class="scroll-hint">
+            keep scrolling
+            <span></span>
+        </div>
+    </section>
+
+    <!-- Handwritten note -->
+    <section class="note-section">
+        <div class="note-card reveal">
+            <h2>Hey Zoe ♥</h2>
+            <p>You know that I'm not the best with arts and crafts so I chose a different route! I hope you like it. Don't stay here for too long, keep scrolling!! MWA</p>
+        </div>
+    </section>
+
+    <!-- Photo strip -->
+    <div class="photo-strip">
+        <div class="strip-scroll" id="photoStrip">
+            <div class="strip-photo" style="--rotation: -2deg;">
+                <div class="strip-photo-inner"><img src="first.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">your first impression of me</div>
+            </div>
+            <div class="strip-photo" style="--rotation: 1.5deg;">
+                <div class="strip-photo-inner"><img src="nhs.JPG" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">relay 4 life</div>
+            </div>
+            <div class="strip-photo" style="--rotation: -1deg;">
+                <div class="strip-photo-inner"><img src="Halloween.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">halloween</div>
+            </div>
+            <div class="strip-photo" style="--rotation: 2deg;">
+                <div class="strip-photo-inner"><img src="sleepovers.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">sleepoverss</div>
+            </div>
+            <div class="strip-photo" style="--rotation: -1.5deg;">
+                <div class="strip-photo-inner"><img src="ussssss.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">just us type</div>
+            </div>
+            <div class="strip-photo" style="--rotation: 1deg;">
+                <div class="strip-photo-inner"><img src="acamis.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">acamis</div>
+            </div>
+            <div class="strip-photo" style="--rotation: -2deg;">
+                <div class="strip-photo-inner"><img src="prom.JPG" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">prom</div>
+            </div>
+            <div class="strip-photo" style="--rotation: 1.5deg;">
+                <div class="strip-photo-inner"><img src="calls 2.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">our calls</div>
+            </div>
+            <!-- duplicated for infinite scroll -->
+            <div class="strip-photo" style="--rotation: -2deg;">
+                <div class="strip-photo-inner"><img src="first.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">your first impression of me</div>
+            </div>
+            <div class="strip-photo" style="--rotation: 1.5deg;">
+                <div class="strip-photo-inner"><img src="nhs.JPG" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">relay 4 life</div>
+            </div>
+            <div class="strip-photo" style="--rotation: -1deg;">
+                <div class="strip-photo-inner"><img src="Halloween.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">halloween</div>
+            </div>
+            <div class="strip-photo" style="--rotation: 2deg;">
+                <div class="strip-photo-inner"><img src="sleepovers.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">sleepoverss</div>
+            </div>
+            <div class="strip-photo" style="--rotation: -1.5deg;">
+                <div class="strip-photo-inner"><img src="ussssss.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">just us type</div>
+            </div>
+            <div class="strip-photo" style="--rotation: 1deg;">
+                <div class="strip-photo-inner"><img src="acamis.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">acamis</div>
+            </div>
+            <div class="strip-photo" style="--rotation: -2deg;">
+                <div class="strip-photo-inner"><img src="prom.JPG" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">prom</div>
+            </div>
+            <div class="strip-photo" style="--rotation: 1.5deg;">
+                <div class="strip-photo-inner"><img src="calls 2.jpg" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+                <div class="caption">our calls</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo + Text pairs -->
+    <section class="photo-text-section">
+        <div class="photo-text-row">
+            <div class="photo-frame reveal-left">
+                <div class="photo-frame-inner">
+                    <img src="promposal1.JPG" alt="" style="width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;">
+                </div>
+            </div>
+            <div class="text-side reveal-right">
+                <h3>The day we started "dating"</h3>
+                <p>When I promposed to you but we didn't even go to prom lol. I think I knew even back then how much I loved you. </p>
+                <span class="doodle-heart">♥</span>
+            </div>
+        </div>
+        <div class="photo-text-row">
+            <div class="photo-frame reveal-right">
+                <div class="photo-frame-inner">
+                    <img src="promposal2.JPG" alt="" style="width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;">
+                </div>
+            </div>
+            <div class="text-side reveal-left">
+                <h3>Full circle type</h3>
+                <p>2nd promposal and we actually did go to prom this time! Much bigger poster and a much bigger love for you that's not going to stop growing. </p>
+                <span class="doodle-heart">♥</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full width photo break -->
+    <div class="full-photo-break reveal">
+        <div class="overlay-text">
+            <h2>you're my favorite ever</h2>
+            <p>You're so freaking amazing yo</p>
+        </div>
+    </div>
+
+    <!-- Sticky Scroll Messages -->
+    <div class="sticky-section" id="stickySection">
+        <div class="sticky-container">
+            <div class="sticky-bg-hearts" id="stickyHearts"></div>
+            <div class="sticky-text" id="stickyText">you are my favorite hello</div>
+        </div>
+    </div>
+
+    <!-- Timeline - Scrapbook style
+    <section class="timeline-section">
+        <h2 class="section-title reveal">our year, month by month</h2>
+        <p class="section-sub reveal">the little moments and the big ones too</p>
+
+        <div class="tl-connector reveal"></div>
+
+        <div class="timeline-item reveal-left">
+            <div class="tl-photo">💜</div>
+            <div class="tl-content">
+                <div class="tl-date">June 2024</div>
+                <h3>the beginning of everything</h3>
+                <p>Butterflies. Late night texts. Not wanting to say goodbye. The start of the best chapter of our lives.</p>
+            </div>
+        </div>
+
+        <div class="tl-connector reveal"></div>
+
+        <div class="timeline-item reveal-right">
+            <div class="tl-photo">☀️</div>
+            <div class="tl-content">
+                <div class="tl-date">August 2024</div>
+                <h3>summer with you</h3>
+                <p>Road trips with the windows down. Ice cream dates. Falling asleep on the phone. Everything felt golden.</p>
+            </div>
+        </div>
+
+        <div class="tl-connector reveal"></div>
+
+        <div class="timeline-item reveal-left">
+            <div class="tl-photo">🍂</div>
+            <div class="tl-content">
+                <div class="tl-date">October 2024</div>
+                <h3>cozy season together</h3>
+                <p>Matching mugs. Horror movies where one of us pretended not to be scared. The world turning orange and us turning into each other's home.</p>
+            </div>
+        </div>
+
+        <div class="tl-connector reveal"></div>
+
+        <div class="timeline-item reveal-right">
+            <div class="tl-photo">❄️</div>
+            <div class="tl-content">
+                <div class="tl-date">December 2024</div>
+                <h3>our first holidays</h3>
+                <p>Wrapping presents badly. Christmas lights. That feeling of "I want every holiday to be like this, with you."</p>
+            </div>
+        </div>
+
+        <div class="tl-connector reveal"></div>
+
+        <div class="timeline-item reveal-left">
+            <div class="tl-photo">💌</div>
+            <div class="tl-content">
+                <div class="tl-date">February 2025</div>
+                <h3>valentine's day & beyond</h3>
+                <p>We don't need a holiday to celebrate us, but it was nice to have an excuse to be extra cheesy.</p>
+            </div>
+        </div>
+
+        <div class="tl-connector reveal"></div>
+
+        <div class="timeline-item reveal-right">
+            <div class="tl-photo">🎉</div>
+            <div class="tl-content">
+                <div class="tl-date">June 2025</div>
+                <h3>ONE YEAR!</h3>
+                <p>We made it around the sun together. And honestly? I'd do it a million more times. Here's to us, forever.</p>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Letters Stack -->
+    <section class="letters-section">
+        <h2 class="section-title reveal">letters to you</h2>
+        <p class="section-sub reveal">little notes from my heart to yours — click to flip through</p>
+        <div class="letters-container reveal" id="lettersContainer"></div>
+        <div class="letter-nav reveal">
+            <button id="prevLetter">←</button>
+            <span class="letter-counter" id="letterCounter">1 / 5</span>
+            <button id="nextLetter">→</button>
+        </div>
+    </section>
+
+    <!-- Photo collage -->
+    <section class="collage-section">
+        <h2 class="section-title reveal">just fotos of us</h2>
+        <div class="collage-grid">
+            <div class="collage-item reveal-left"><div class="col-placeholder">📷<br>add a photo of us</div></div>
+            <div class="collage-item reveal"><div class="col-placeholder">📷<br>a silly one</div></div>
+            <div class="collage-item reveal-right"><div class="col-placeholder">📷<br>your favorite of me</div></div>
+            <div class="collage-item reveal-left"><div class="col-placeholder">📷<br>my favorite of you</div></div>
+            <div class="collage-item reveal"><div class="col-placeholder">📷<br>an adventure</div></div>
+            <div class="collage-item reveal-left"><div class="col-placeholder">📷<br>a quiet moment</div></div>
+            <div class="collage-item reveal-right"><div class="col-placeholder">📷<br>us being us</div></div>
+        </div>
+    </section>
+
+    <!-- Reasons -->
+    <section class="reasons-section">
+        <h2 class="section-title reveal">10 reasons I love you</h2>
+        <div class="reason-item reveal"><span class="reason-num">1.</span><span class="reason-text">The way you make me laugh everyday because...I'll say it, you're pretty funny</span></div>
+        <div class="reason-item reveal"><span class="reason-num">2.</span><span class="reason-text">How you tolerate my stupidness</span></div>
+        <div class="reason-item reveal"><span class="reason-num">3.</span><span class="reason-text">The way you roll your eyes when I compliment you</span></div>
+        <div class="reason-item reveal"><span class="reason-num">4.</span><span class="reason-text">The way you say thiere, and right neow, and deown.</span></div>
+        <div class="reason-item reveal"><span class="reason-num">5.</span><span class="reason-text">That one photo of you I took the moment you woke up on the train heh</span></div>
+        <div class="reason-item reveal"><span class="reason-num">6.</span><span class="reason-text">The way you make me feel like I'm the only person in the world</span></div>
+        <div class="reason-item reveal"><span class="reason-num">7.</span><span class="reason-text">The way you understand me even when I don't</span></div>
+        <div class="reason-item reveal"><span class="reason-num">8.</span><span class="reason-text">How you make my day better just by being there</span></div>
+        <div class="reason-item reveal"><span class="reason-num">9.</span><span class="reason-text">How you make me feel like I can do anything</span></div>
+        <div class="reason-item reveal"><span class="reason-num">10.</span><span class="reason-text">Simply because you're you, and you chose me</span></div>
+    </section>
+
+    <!-- Counter -->
+    <section class="counter-section">
+        <h2 class="section-title reveal">by the numbers</h2>
+        <div class="counter-grid">
+            <div class="counter-item reveal">
+                <div class="number" id="counterDays">0</div>
+                <div class="label">days together</div>
+            </div>
+            <div class="counter-item reveal">
+                <div class="number" id="counterHours">0</div>
+                <div class="label">hours</div>
+            </div>
+            <div class="counter-item reveal">
+                <div class="number">∞</div>
+                <div class="label">how much I love you</div>
+            </div>
+            <div class="counter-item reveal">
+                <div class="number">1</div>
+                <div class="label">love of my life</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with photo background -->
+    <footer>
+        <div class="footer-content reveal">
+            <h2>This is the end to the website but just the beginning for our memories!!</h2>
+            <p>happy one year, I love you so so so insanely much and I'm so excited about us. I'm sorry if this was a little cringy loll</p>
+        </div>
+    </footer>
+
+    <script>
+        // Letters data
+        const letters = [
+            {
+                date: "May 18, 2026",
+                greeting: "To my favorite person",
+                body: "Happy 1 year to us!! Isn't that wild? To me it really is but not because I never imagined us here, instead I never expect it to be here this fast. I guess time flies when you're having the time of your life. Over this one year period, you've shown me love that I've never felt before and I genuinely feel so blessed to be me.",
+                sign: ""
+            },
+            {
+                date: "",
+                greeting: "",
+                body: "I think I've told you this before, but when I'm having a tough time or when I'm anxious for something, I think to myself, wait my girlfriend is literally the most amazing girl in the world, and every worry and trouble melts away. That effect is even more amplified when I see you. Sometimes I have an exhausting day and I'm just so tired, but when I see you, I'm left with nothing but a smile on my face.",
+                sign: ""
+            },
+            {
+                date: "",
+                greeting: "",
+                body: "Everything washes away when I'm with you, and what's left is just you and me, because nothing else matters in that moment. When I say just me, I mean just me. Every shield, every persona, every act that I put up when I talk to people is no more when I'm with you. Just purely myself, and you that person which is so comforting but exciting. You understand me in a level that I don't think I do even myself. And I really believe the opposite hold for you and I too.",
+                sign: ""
+            },
+            {
+                date: "",
+                greeting: "",
+                body: "I think I haven't known a person more than I know you. Not just your love for tomatoes, the color purple, bts, community, and so much more that makes you you, but all the small quirks like how you don't like to put your hair up (even if it looks so good), how you manage to find a way to prop your feet up everywhere you sit, how you dig into your hands with nails when you're not feeling so well, or even your secret love for feet. I just know you like that",
+                sign: ""
+            },
+            {
+                date: "",
+                greeting: "",
+                body: "All of this is part of you that I cherish and love everyday even if it's kinda weird like liking feet, weirdo. I'm so lucky that I got to examine this awesome girl and get to know her inside and out, wink. But seriously, to be able to get to know such an interesting and wonderful girl is what blows my mind on how it's been a year. I feel like I'm just getting to know you but also feel like I've known you for decades.",
+                sign: ""
+            }
+        ];
+
+        let currentLetter = 0;
+        const lettersContainer = document.getElementById('lettersContainer');
+        const letterCounter = document.getElementById('letterCounter');
+
+        function renderLetters() {
+            lettersContainer.innerHTML = '';
+            letters.forEach((letter, index) => {
+                const card = document.createElement('div');
+                card.className = 'letter-card';
+                card.innerHTML = `
+                    <div class="tape"></div>
+                    <div class="letter-date">${letter.date}</div>
+                    <div class="letter-greeting">${letter.greeting}</div>
+                    <div class="letter-body">${letter.body}</div>
+                    <div class="letter-sign">— ${letter.sign}</div>
+                `;
+                card.addEventListener('click', () => {
+                    if (currentLetter < letters.length - 1) {
+                        currentLetter++;
+                        updateLetterPositions();
+                    }
+                });
+                lettersContainer.appendChild(card);
+            });
+            updateLetterPositions();
+        }
+
+        function updateLetterPositions() {
+            const cards = document.querySelectorAll('.letter-card');
+            cards.forEach((card, index) => {
+                card.className = 'letter-card';
+                const diff = index - currentLetter;
+                if (diff === 0) card.classList.add('stack-0');
+                else if (diff === 1) card.classList.add('stack-1');
+                else if (diff === 2) card.classList.add('stack-2');
+                else if (diff === 3) card.classList.add('stack-3');
+                else if (diff < 0) card.classList.add('exiting');
+                else card.classList.add('stack-hidden');
+            });
+            letterCounter.textContent = `${currentLetter + 1} / ${letters.length}`;
+        }
+
+        document.getElementById('nextLetter').addEventListener('click', () => {
+            if (currentLetter < letters.length - 1) {
+                currentLetter++;
+                updateLetterPositions();
+            }
+        });
+
+        document.getElementById('prevLetter').addEventListener('click', () => {
+            if (currentLetter > 0) {
+                currentLetter--;
+                updateLetterPositions();
+            }
+        });
+
+        renderLetters();
+
+        // Scroll reveal
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            reveals.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.88) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        // Timeline activation
+        function activateTimeline() {
+            const items = document.querySelectorAll('.timeline-item');
+            items.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.65) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Progress bar
+        function updateProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Sticky text effect
+        function stickyTextEffect() {
+            const section = document.getElementById('stickySection');
+            const text = document.getElementById('stickyText');
+            const rect = section.getBoundingClientRect();
+            const sectionHeight = section.offsetHeight;
+            const progress = Math.max(0, Math.min(1, -rect.top / (sectionHeight - window.innerHeight)));
+
+            const messages = [
+                "you are my favorite hello",
+                "and my hardest goodbye",
+                "but mostly you're my everything in between",
+                "i love you the absolute most"
+            ];
+
+            const index = Math.min(Math.floor(progress * messages.length), messages.length - 1);
+            if (text.textContent !== messages[index]) {
+                text.style.opacity = 0;
+                setTimeout(() => {
+                    text.textContent = messages[index];
+                    text.style.opacity = 1;
+                }, 200);
+            }
+        }
+
+        // Counter animation
+        let counterAnimated = false;
+        function animateCounters() {
+            if (counterAnimated) return;
+            const section = document.querySelector('.counter-section');
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.7) {
+                counterAnimated = true;
+                animateNumber('counterDays', 0, 365, 2000);
+                animateNumber('counterHours', 0, 8760, 2500);
+            }
+        }
+
+        function animateNumber(id, start, end, duration) {
+            const el = document.getElementById(id);
+            const startTime = performance.now();
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(start + (end - start) * eased);
+                el.textContent = current.toLocaleString();
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Scatter hearts in sticky section
+        function createStickyHearts() {
+            const container = document.getElementById('stickyHearts');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('span');
+                heart.className = 'bg-heart';
+                heart.textContent = '♥';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 2 + 0.8) + 'rem';
+                heart.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
+                container.appendChild(heart);
+            }
+        }
+        createStickyHearts();
+
+        // Scroll event
+        window.addEventListener('scroll', () => {
+            revealOnScroll();
+            activateTimeline();
+            updateProgress();
+            stickyTextEffect();
+            animateCounters();
+        });
+
+        revealOnScroll();
+        activateTimeline();
+    </script>
+</body>
+</html>
